@@ -1,16 +1,17 @@
 # infra
+
 infra
 
 ## 基础设施
 
 + k8s
-    + master
-    + node
+  + master
+  + node
 + postgres
-    + db server
-    + pgadmin
+  + db server
+  + pgadmin
 + redis
-    + server
+  + server
 + pulsar
-    + server
-    + admin
+  + server
+  + admin
