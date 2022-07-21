@@ -1,0 +1,19 @@
+version: "3.9"
+
+networks:
+  infra:
+    name: infra
+
+services:
+  tdengine:
+    image: pgyer/codefever-community:latest
+    container_name: "codefever"
+    restart: always
+    hostname: codefever
+    networks:
+      - infra
+    ports:
+      - "8100:80"
+      - "23:22"
+    volumes:
+      - "/infra/codefever/mysql:/var/lib/mysql"
