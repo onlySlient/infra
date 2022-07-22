@@ -5,35 +5,14 @@ networks:
     name: infra
 
 services:
-
-  codefever:
-    image: pgyer/codefever-community-lite:latest
-    ports:
-      - "8100:80"
-      - "23:22"
-    depends_on:
-      - db
-    volumes:
-      - /infra/codefever/git/git-storage:/data/www/codefever-community/git-storage
-      - /infra/codefever/git/logs:/data/www/codefever-community/application/logs
-    environment:
-      DB_HOST: "db"
-      DB_PORT: "3306"
-      DB_USER: "root"
-      DB_PASS: "123456" # Need to be the same as MYSQL_ROOT_PASSWORD
-      DB_NAME: "codefever_community"
-
-  db:
-    image: mysql:5.7.31
+  pg:
+    image: postgres:alpine3.16
     restart: always
-    #privileged: true
-    volumes:
-      - /infra/codefever/mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "123456"
-    command:
-      [
-        '--character-set-server=utf8mb4',
-        '--collation-server=utf8mb4_general_ci',
-        '--max_connections=3000'
-      ]
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=p1ssw0rd
+    ports:
+      - '54320:5432'
+    volumes: 
+      - /infra/codefever/pg/data:/var/lib/postgresql/data
+
