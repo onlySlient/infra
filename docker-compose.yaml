@@ -14,5 +14,5 @@ services:
     ports:
       - '54320:5432'
     volumes: 
-      - /infra/codefever/pg/data:/var/lib/postgresql/data
+      - /infra/pg/data:/var/lib/postgresql/data
 
