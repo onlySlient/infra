@@ -4,7 +4,7 @@ infra
 
 ## 基础设施
 
-+ codefever
++ gitlab
 + k8s
   + master
   + node

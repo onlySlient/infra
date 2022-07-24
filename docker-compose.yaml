@@ -16,3 +16,21 @@ services:
     volumes: 
       - /infra/pg/data:/var/lib/postgresql/data
 
+  gitlab:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    # hostname: 'gitlab.example.com'
+    # environment:
+    #   GITLAB_OMNIBUS_CONFIG: |
+        # external_url 'https://gitlab.example.com'
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - '8100:80'
+      - '443:443'
+      - '23:22'
+    volumes:
+      - '/infra/gitlab/config:/etc/gitlab'
+      - '/infra/gitlab/logs:/var/log/gitlab'
+      - '/infra/gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'
+
