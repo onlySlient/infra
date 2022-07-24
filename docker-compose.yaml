@@ -16,6 +16,18 @@ services:
     volumes: 
       - /infra/pg/data:/var/lib/postgresql/data
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8200:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: slient@slient.com
+      PGADMIN_DEFAULT_PASSWORD: p1ssw0rd
+    volumes:
+      - /infra/pg/admin:/var/lib/pgadmin
+
   # 服务器顶不住，emmm,再说
   # gitlab:
   #   image: 'gitlab/gitlab-ee:latest'
