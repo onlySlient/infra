@@ -37,6 +37,34 @@ services:
     volumes:
       - /infra/redis/data:/data
       - /infra/redis/conf/redis.conf:/etc/redis/redis.conf
+  pulsar:
+    image: apachepulsar/pulsar
+    hostname: pulsar
+    restart: always
+    environment:
+      PULSAR_MEM: "-Xms2g -Xmx2g -XX:MaxDirectMemorySize=4g"
+      BOOKIE_MEM: "-Xms2g -Xmx2g -XX:MaxDirectMemorySize=2g"
+    ports:
+      - "6650:6650"
+      - "6080:8080"
+    volumes:
+      - "/infra/pulsar/data:/pulsar/data"
+    command: bin/pulsar standalone
+  pulsar-manager:
+    image: apachepulsar/pulsar-manager
+    restart: always
+    depends_on:
+      - pulsar
+    links:
+      - pulsar
+    # environment:
+      # SPRING_CONFIGURATION_FILE: /pulsar-manager/pulsar-manager/application.properties
+    ports:
+      - "9527:9527"
+      - "7750:7750"
+    volumes:
+      # - "/infra/pulsar/manager/config/pulsar/application.properties:/pulsar-manager/pulsar-manager/application.properties"
+      - "/infra/pulsar/manager/dbdata:/pulsar-manager/pulsar-manager/dbdata"
 
   # 服务器顶不住，emmm,再说
   # gitlab:
