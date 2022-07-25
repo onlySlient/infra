@@ -27,6 +27,17 @@ services:
     volumes:
       - /infra/pg/admin:/var/lib/pgadmin
 
+  redis:
+    image: redis:6.0.6
+    restart: always
+    ports:
+      - 63790:6379
+    privileged: true
+    command: redis-server /etc/redis/redis.conf --appendonly yes
+    volumes:
+      - /infra/redis/data:/data
+      - /infra/redis/conf/redis.conf:/etc/redis/redis.conf
+
   # 服务器顶不住，emmm,再说
   # gitlab:
   #   image: 'gitlab/gitlab-ee:latest'
